@@ -3223,10 +3223,10 @@ const ua=navigator.userAgent||"",IOS=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.t
 const L=()=>{try{return (I18N&&I18N.lang)||SETTINGS.lang||"uk"}catch(_){return "uk"}};
 const TX={uk:{tag:"ДЕМО",intro:"Це демоверсія «Нічного стадіону» в браузері.",intro2:"Перший сезон — повністю безкоштовно. Продовжити кар'єру можна в застосунку.",ok:"Грати",
   endH:"Сезон завершено!",endP:"Демоверсія охоплює один сезон. Щоб вести клуб далі — встанови застосунок «Нічний стадіон»: там усі сезони, єврокубки, збірна й нові оновлення.",
-  play:"Встановити з Google Play",ios:"Версія для iPhone — незабаром у App Store",again:"Почати нову кар'єру",move:"Перенести прогрес у застосунок",note:"Натисни «Перенести прогрес», скопіюй код, а в застосунку відкрий «Завантажити гру» і встав його — кар'єра продовжиться з того ж місця.",pill:"Повна гра — у Google Play"},
+  play:"Встановити з Google Play",ios:"Версія для iPhone — незабаром у App Store",again:"Почати нову кар'єру",move:"Перенести прогрес у застосунок",note:"Натисни «Перенести прогрес», скопіюй код, а в застосунку відкрий «Завантажити гру» і встав його — кар'єра продовжиться з того ж місця.",pill:"Повна гра — у Google Play",pill2:"Google Play",pack:"Свої назви й емблеми →"},
  en:{tag:"DEMO",intro:"This is the browser demo of Night Stadium.",intro2:"Your first season is completely free. Continue your career in the app.",ok:"Play",
   endH:"Season complete!",endP:"The demo covers one season. To keep managing your club, install the Night Stadium app: every season, continental cups, the national team and new updates.",
-  play:"Get it on Google Play",ios:"iPhone version coming soon to the App Store",again:"Start a new career",move:"Move my progress to the app",note:"Tap “Move my progress”, copy the code, then in the app open “Load game” and paste it — your career continues right where you left off.",pill:"Full game on Google Play"}};
+  play:"Get it on Google Play",ios:"iPhone version coming soon to the App Store",again:"Start a new career",move:"Move my progress to the app",note:"Tap “Move my progress”, copy the code, then in the app open “Load game” and paste it — your career continues right where you left off.",pill:"Full game on Google Play",pill2:"Google Play",pack:"Custom names & crests →"}};
 const t=k=>(TX[L()]||TX.en)[k]||TX.uk[k];
 const css=document.createElement("style");css.textContent=`
 .wd-ov{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(5,8,24,.86);backdrop-filter:blur(6px)}
@@ -3236,16 +3236,18 @@ const css=document.createElement("style");css.textContent=`
 .wd-tag{display:inline-block;padding:3px 10px;border-radius:99px;background:#c8ff2e;color:#0a0f2c;font-weight:800;font-size:12px;letter-spacing:.12em}
 .wd-btn{display:block;width:100%;padding:14px;border-radius:14px;border:0;font-weight:800;font-size:16px;margin-top:10px;cursor:pointer;text-decoration:none;box-sizing:border-box}
 .wd-btn.p{background:#c8ff2e;color:#0a0f2c}.wd-btn.s{background:rgba(255,255,255,.08);color:#eef2ff;border:1px solid rgba(255,255,255,.18)}.wd-btn.d{background:rgba(255,255,255,.05);color:#9aa4cc;cursor:default}
-.wd-pill{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));z-index:900;padding:8px 14px;border-radius:99px;background:#c8ff2e;color:#0a0f2c;font-weight:800;font-size:13px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.45);white-space:nowrap}`;
+.wd-pill{position:fixed;right:8px;bottom:calc(150px + env(safe-area-inset-bottom));z-index:9000;display:flex;align-items:center;gap:6px;padding:7px 12px 7px 9px;border-radius:99px;background:#c8ff2e;color:#0a0f2c;font-weight:800;font-size:12.5px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.5);white-space:nowrap;opacity:.95}
+.wd-pill svg{width:16px;height:16px;flex:none}.wd-pill.wd-mini span{display:none}.wd-pill.wd-mini{padding:9px}
+.wd-link{display:block;margin-top:12px;color:#c8ff2e;font-size:14px;font-weight:700;text-decoration:none}`;
 document.head.appendChild(css);
 function storeBtns(){let h="";if(!IOS)h+=`<a class="wd-btn p notr" href="${PLAY}" target="_blank" rel="noopener">${t("play")}</a>`;if(IOS||!AND)h+=`<div class="wd-btn ${IOS?"p":"d"} notr" style="${IOS?"opacity:.9":""}">${t("ios")}</div>`;return h}
 function ov(html){let el=document.getElementById("wdov");if(!el){el=document.createElement("div");el.id="wdov";el.className="wd-ov notr";document.body.appendChild(el)}el.innerHTML=`<div class="wd-card">${html}</div>`;return el}
 function closeOv(){const el=document.getElementById("wdov");if(el)el.remove()}
-function showEnd(){if(document.getElementById("wdov"))return;const el=ov(`<span class="wd-tag">${t("tag")}</span><h2>${t("endH")}</h2><p>${t("endP")}</p>${storeBtns()}<button class="wd-btn s" data-wd="move">${t("move")}</button><button class="wd-btn s" data-wd="again">${t("again")}</button><small>${t("note")}</small>`);
+function showEnd(){if(document.getElementById("wdov"))return;const el=ov(`<span class="wd-tag">${t("tag")}</span><h2>${t("endH")}</h2><p>${t("endP")}</p>${storeBtns()}<button class="wd-btn s" data-wd="move">${t("move")}</button><button class="wd-btn s" data-wd="again">${t("again")}</button><small>${t("note")}</small><a class="wd-link notr" href="paket.html" target="_blank" rel="noopener">${t("pack")}</a>`);
   el.querySelector("[data-wd=move]").onclick=()=>{closeOv();UIx.hold=Date.now()+600000;try{const b=document.createElement("button");b.dataset.act="saves";b.style.display="none";document.body.appendChild(b);b.click();b.remove()}catch(_){}};
   el.querySelector("[data-wd=again]").onclick=()=>{closeOv();try{S=null;UI.screen="menu";render()}catch(_){location.reload()}}}
 function introOnce(){let seen=false;try{seen=localStorage.getItem("ns-web-intro")==="1"}catch(_){}if(seen)return;try{localStorage.setItem("ns-web-intro","1")}catch(_){}
-  const el=ov(`<span class="wd-tag">${t("tag")}</span><h2 style="margin-top:10px">${t("intro")}</h2><p>${t("intro2")}</p><button class="wd-btn p" data-wd="ok">${t("ok")}</button>${!IOS?`<a class="wd-btn s notr" href="${PLAY}" target="_blank" rel="noopener">${t("play")}</a>`:""}`);el.querySelector("[data-wd=ok]").onclick=closeOv}
+  const el=ov(`<span class="wd-tag">${t("tag")}</span><h2 style="margin-top:10px">${t("intro")}</h2><p>${t("intro2")}</p><button class="wd-btn p" data-wd="ok">${t("ok")}</button>${!IOS?`<a class="wd-btn s notr" href="${PLAY}" target="_blank" rel="noopener">${t("play")}</a>`:""}<a class="wd-link notr" href="paket.html" target="_blank" rel="noopener">${t("pack")}</a>`);el.querySelector("[data-wd=ok]").onclick=closeOv}
 // кінець першого сезону: позначаємо збереження як завершене демо
 const _es=endSeason;endSeason=function(){const r=_es.apply(this,arguments);try{if(S)S.demoOver=true}catch(_){}return r};
 // після підсумків сезону (коли модальне вікно закрито) і при завантаженні такого збереження — екран переходу в застосунок
@@ -3253,7 +3255,10 @@ const UIx={hold:0};function check(){try{if(Date.now()<UIx.hold&&document.querySe
 const _r=render;render=function(){const x=_r.apply(this,arguments);setTimeout(check,30);pill();return x};
 setInterval(check,700);
 // невелика кнопка в меню
-function pill(){try{const onMenu=UI.screen==="menu"||!S;let p=document.getElementById("wdpill");if(!onMenu||IOS){if(p)p.remove();return}if(!p){p=document.createElement("a");p.id="wdpill";p.className="wd-pill notr";p.href=PLAY;p.target="_blank";p.rel="noopener";document.body.appendChild(p)}p.textContent="▶ "+t("pill")}catch(_){}}
+const PICO='<svg viewBox="0 0 24 24"><path fill="#0a0f2c" d="M4 2.8v18.4c0 .7.8 1.1 1.4.7L20.6 13a1.2 1.2 0 0 0 0-2L5.4 2.1C4.8 1.7 4 2.1 4 2.8z"/></svg>';
+function pill(){try{let p=document.getElementById("wdpill");if(IOS){if(p)p.remove();return}if(!p){p=document.createElement("a");p.id="wdpill";p.className="wd-pill notr";p.href=PLAY;p.target="_blank";p.rel="noopener";document.body.appendChild(p)}
+  const html=PICO+"<span>"+t("pill2")+"</span>";if(p.innerHTML!==html)p.innerHTML=html;const inMatch=!!(typeof SIM!=="undefined"&&SIM&&document.querySelector("#pitch")&&document.querySelector("#pitch").offsetParent);p.classList.toggle("wd-mini",inMatch)}catch(_){}}
+setInterval(pill,1000);
 window.addEventListener("load",()=>{setTimeout(()=>{introOnce();pill()},4500)});
 })();
 
